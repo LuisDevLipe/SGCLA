@@ -1,5 +1,5 @@
 from django.db import models
-
+import datetime
 # Create your models here.
 class Livro(models.Model):
     titulo = models.CharField("Título do Livro", max_length=200)
@@ -27,8 +27,10 @@ class LivrosAlugados(models.Model):
     livro = models.ForeignKey(Livro,on_delete=models.CASCADE)
     dataDevolucao = models.DateTimeField()
     dataEmprestado = models.DateTimeField()
-    nota = models.CharField("Observação", max_length=200)
+    nota = models.CharField("Observação", max_length=200,default="")
 
-    def __str__(self):
-        devolve = str(self.dataDevolucao)
-        return self.livro.__str__() + "_" + devolve
+    def aluguelNormal(self):
+        return self.dataEmprestado + datetime.timedelta(days = 7)
+
+    def aluguelExtendido(self):
+        return self.dataEmprestado + datetime.timedelta(days = 15)

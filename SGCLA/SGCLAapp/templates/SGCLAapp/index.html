@@ -1,0 +1,9 @@
+{%if livros%}
+    <ul>
+        {%for livro in livros%}
+            <li><a href="/SGCLAapp/detalhes/{{livro.id}}">{{livro.titulo}}</a></li>
+        {%endfor%}
+    </ul>
+{%else%}
+    <p>Nenhum Livro encontrado!</p>
+{%endif%}

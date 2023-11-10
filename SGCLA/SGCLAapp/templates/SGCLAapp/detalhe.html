@@ -1,0 +1,8 @@
+<h1>{{livro.titulo}}</h1>
+<ul>
+    {%for livro in livro.usuario_set.all%}
+    <li>
+        {{livro}}
+    </li>
+    {%endfor%}
+</ul>
