@@ -1,0 +1,29 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'SGCLAapp/estilo.css' %}"/>
+<a href="{% url 'SGCLA:index' %}">Voltar ao início</a>
+
+<h1>Adicionar um livro</h1>
+
+<form action="{%url 'SGCLA:adicionarUmLivro'%}" method="POST">
+    {%csrf_token%}
+    <label for="titulo">Título do livro:</label>
+    <input type="text" name="titulo" id="titulo" placeholder="Ex: O pequeno príncipe">
+
+    <label for="autor"> Autor do livro <small>Caso de múltiplos autores separar por vírgulas ex: Franz Kafka, J.K. Rowling</small>:</label>
+    <input type="text" name="autor" id="autor" placeholder="Ex: C.S. Lewis, Fausto Silva">
+
+    <label for="genero">Gênero:</label>
+    <input type="text" name="genero" id="genero" placeholder="Ex: Suspense">
+
+    <label for="editora">Editora:</label>
+    <input type="text" name="editora" id="editora" placeholder="Ex: Abril - Clássicos">
+
+    <label for="anoPublicacao">Data de Publicação:</label>
+    <input type="date" name="anoPublicacao" id="anoPublicacao" placeholder="Ex: 15/11/1889">
+
+    <label for="unidades">Unidades disponíveis:</label>
+    <input type="number" name="unidades" id="unidades" placeholder="Ex: 5">
+
+    <label for="enviar">Botão de enviar formulário</label>
+    <input type="submit" id="enviar" value="Clique aqui para adcionar este livro">
+</form>

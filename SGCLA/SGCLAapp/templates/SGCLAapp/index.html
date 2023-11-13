@@ -1,7 +1,27 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'SGCLAapp/estilo.css' %}"/>
+
+<header>
+    <a href="{%url 'SGCLA:adicionarUmLivroRota'%}">Adcionar um novo livro</a>
+
+    <form action="{% url 'SGCLA:buscar' 'titulo' %}" method="GET">
+        {%csrf_token%}
+        <label for="titulo">-Pesquisa por Título ou Autor do livro-</label>
+        <br/>
+        <input type="text" name="titulo" id="titulo" placeholder="Ex: Biografia Andressa Urach">
+        <input type="submit" value="Pesquisar Aqui">
+    </form>
+
+</header>
 {%if livros%}
+    {%if busca%}
+        <h1>Resultado da sua Busca:</h1>
+    {%else%}
+        <h1>Lista de Livros :Alfabética</h1>
+    {%endif%} 
     <ul>
         {%for livro in livros%}
-            <li><a href="/SGCLAapp/detalhes/{{livro.id}}">{{livro.titulo}}</a></li>
+            <li><a href="{% url 'SGCLA:detalhes' livro.id%}">{{livro.titulo}}</a></li>
         {%endfor%}
     </ul>
 {%else%}

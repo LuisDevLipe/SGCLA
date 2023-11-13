@@ -1,0 +1,34 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'SGCLAapp/estilo.css' %}"/>
+
+<a href="{%url 'SGCLA:index'%}"> Voltar ao Início</a>
+<h1>Livro: {{livro.titulo}}</h1>
+<p>Autor: {{livro.autor}}</p>
+<p>Editora: {{livro.editora}}</p>
+<small>Gênero:{{livro.genero}}</small>
+<p>Publicação do livro:{{livro.anoPublicacao}}</p>
+<p>Unidades no total: {{livro.unidades}}</p>
+<p>Unidades Disponíveis: {{disponiveis}}</p>
+
+<table>
+    <h1>Livros Emprestados</h1>
+    <tr>
+        <th>Data Emprestado</th>
+        <th>Data Devolução</th>
+        <th>Cliente</th>
+    </tr>
+    {%for a in alugados%}
+    <tr>
+
+        <td>
+            {{a.dataEmprestado}}
+        </td>
+        <td>
+            {{a.dataDevolucao}}
+        </td>
+        <td>
+            {{a.usuario}}
+        </td>
+    </tr>
+        {%endfor%}
+</table>
