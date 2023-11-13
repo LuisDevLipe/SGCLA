@@ -2,7 +2,10 @@
 <link rel="stylesheet" href="{% static 'SGCLAapp/estilo.css' %}"/>
 
 <header>
-    <a href="{%url 'SGCLA:adicionarUmLivroRota'%}">Adcionar um novo livro</a>
+    {%if busca%}
+    <a href="{% url 'SGCLA:index' %}">Voltar ao início.</a>
+    {%endif%}
+    <a href="{%url 'SGCLA:adicionarUmLivroRota'%}">Adcionar um novo livro.</a>
 
     <form action="{% url 'SGCLA:buscar' 'titulo' %}" method="GET">
         {%csrf_token%}
