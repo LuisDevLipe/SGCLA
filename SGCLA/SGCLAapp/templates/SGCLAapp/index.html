@@ -24,7 +24,7 @@
     {%endif%} 
     <ul>
         {%for livro in livros%}
-            <li><a href="{% url 'SGCLA:detalhes' livro.id%}">{{livro.titulo}}</a></li>
+            <li><a href="{% url 'SGCLA:detalhes' livro.id%}">{{livro.titulo}}</a>&nbsp;&nbsp;&nbsp;{{livro.unidades}} - unidades</li>
         {%endfor%}
     </ul>
 {%else%}
