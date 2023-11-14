@@ -6,11 +6,11 @@ Projeto: Catálogo de livros com Verificação de disponibilidade.
 Objetivo:
 O aluno irá criar um catálogo de livros em Python. A aplicação incluirá as seguintes etapas.
 
-Cadastro de Livros.
+> Cadastro de Livros.
   - Os usuários poderão cadastrar livros, incluindo título, autor e número de exemplares disponíveis.
-Validação de disponibilidade.
+> Validação de disponibilidade.
   - A aplicação verificará se o número de exemplares disponíveis é um valor válido e maior que 0.
-Pesquisa de livros.
+> Pesquisa de livros.
   - Os usuários poderão pesquisar livros por título ou autor.
   - A aplicação exibirá os resultados da pesquisa e a disponibilidade de cada livro.
 
@@ -30,6 +30,8 @@ Página para adconar um novo livro.
 
 Página contendo detalhes de um livro específico.
 As listas da página inicial e busca podem ser usadas como links diretos para a página de detalhes.
+
+Ao adcionar um livro com unidades = 0 ou < 0 a plicação deve lançar um erro do tipo ValueError com a mensagem de que não é possível adcionar um livro com unidades igual ou menor que 0.
 
 Extra...
   Existe uma tabela de livros alugados que liga livros e usuários atraveés de uma relação muitos para muitos.
