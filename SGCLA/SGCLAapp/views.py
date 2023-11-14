@@ -1,9 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse,Http404, HttpResponseRedirect
-from django.utils import timezone
-from .models import Livro, LivrosAlugados, Usuario
+from django.http import HttpResponse, HttpResponseRedirect
+from .models import Livro, LivrosAlugados
+from django.db.models import Q
 from django.urls import reverse
-import datetime
 from django.template import loader
 
 
@@ -30,9 +29,7 @@ def detalhes(request,livro_id):
 def resultadoDaBusca(request,busca):
 
     busca = request.GET["titulo"]
-    livros = list(Livro.objects.filter(titulo__icontains = busca))
-    livros += Livro.objects.filter(autor__icontains = busca)
-
+    livros = Livro.objects.filter( Q(titulo__icontains = busca) | Q(autor__icontains = busca))
     return render(
         request,
         "SGCLAapp/index.html",
