@@ -28,17 +28,21 @@ def detalhes(request,livro_id):
 
 def resultadoDaBusca(request,busca):
 
-    busca = request.GET["titulo"]
-    livros = Livro.objects.filter( Q(titulo__icontains = busca) | Q(autor__icontains = busca))
-    return render(
-        request,
-        "SGCLAapp/index.html",
-        {
-            "livros":livros,
-            "busca" : True
-        }
-    )
-
+        busca = request.GET["titulo"]
+        livros = Livro.objects.filter( Q(titulo__icontains = busca) | Q(autor__icontains = busca))
+        if livros:
+            statusCode = 201
+        else:
+            statusCode = 404
+        return render(
+            request,
+            "SGCLAapp/index.html",
+            {
+                "livros":livros,
+                "busca" : True
+            },
+            status = int(statusCode)
+        )
 def adicionarUmLivroRota(request):
     template = loader.get_template("SGCLAapp/adicionarUmLivro.html")
     contexto = {"fakeIt_tillYouMakeIt" : True}
@@ -61,7 +65,9 @@ def adicionarUmLivro(request):
         return HttpResponseRedirect(
             reverse(
                 "SGCLA:detalhes",
-                kwargs={"livro_id":livro.id}
+                kwargs={
+                    "livro_id":livro.id,
+                    }
             )
         )
     
