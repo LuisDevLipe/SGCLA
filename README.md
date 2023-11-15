@@ -50,3 +50,7 @@ Extra...
   OBS... Não é esperado empréstimos acima da quantidade de unidades disponíveis. Ex: 7 usuários possuem o livro "As crônicas de Nárnia" emprestado, enquanto o mesmo possui somente 5 unidades disponíveis. Esta ação pode quebrar a aplicação...
   Este problema ainda deve ser resolvido. Esteja ciente avaliador o extra contém bugs para serem corrigidos.
   
+# Vídeo de Demonstração.
+
+  ![Demonstração](DEMO.gif)
+  
