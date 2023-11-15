@@ -1,6 +1,13 @@
 # SGCLA
 Sistema de Gerenciamento e Controle de Livros Alugados
 Projeto Final do Módulo do Programa Match! da MasterTech.
+# A aplicação pode ser vista em.
+https://sgcla.onrender.com/SGCLAapp/
+```
+    nota importante, devido a implementação do gunicorn os arquivos estáticos não estão sendo servidos na página ainda, um outro pacote como nginx deverá ser utilizado no lugar do gunicorn.
+    nota 2 : o erro ao adcionar um livro com 0 unidades levanta server error (500).
+```
+
 
 Projeto: Catálogo de livros com Verificação de disponibilidade.
 Objetivo:
