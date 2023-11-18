@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from .models import Livro, LivrosAlugados
 from django.db.models import Q
 from django.urls import reverse
 from django.template import loader
+from django.core.exceptions import ValidationError
 
 
 # Create your views here.
@@ -49,34 +50,50 @@ def adicionarUmLivroRota(request):
     return  HttpResponse(template.render(contexto, request))
 
 def adicionarUmLivro(request):
-    if int(request.POST["unidades"]) <= 0:
-        raise ValueError("As unidades precisam ser um número válido maior que 0.")
-    
-    livro, inserido = Livro.objects.get_or_create(
-        titulo=request.POST["titulo"],
-        genero=request.POST["genero"],
-        autor=request.POST["autor"],
-        editora=request.POST["editora"],
-        anoPublicacao=request.POST["anoPublicacao"],      
-        unidades=int(request.POST["unidades"])
-    )
 
-    if inserido:
-        return HttpResponseRedirect(
-            reverse(
-                "SGCLA:detalhes",
-                kwargs={
-                    "livro_id":livro.id,
-                    }
-            )
-        )
-    
+    if request.POST["unidades"]:
+        entradasInvalidas = ["True", "None", "False"]
+        if request.POST["unidades"] in entradasInvalidas:
+            raise ValidationError("Seu filho da ****",500)
+        if int(request.POST["unidades"]) <= 0:
+            raise ValidationError("As unidades precisam ser um número válido maior que 0.", 500)
+        
+    templateForm = loader.get_template("SGCLAapp/adicionarUmLivro.html")
+    contexto = {
+        "erro":
+            "O campo unidades precisa ser um número inteiro válido maior que zero"
+    }
+
+    if int(request.POST['unidades']) <= 0:
+        return HttpResponse(templateForm.render(
+            contexto, request
+        ))
     else:
-        return render(
-                request,
-                "SGCLAapp/detalhe.html",
-                {
-                    "livro":livro,
-                    "mensagemDeErro":"Este livro já consta na base de dados"
-                },
+        livro, inserido = Livro.objects.get_or_create(
+            titulo=request.POST["titulo"],
+            genero=request.POST["genero"],
+            autor=request.POST["autor"],
+            editora=request.POST["editora"],
+            anoPublicacao=request.POST["anoPublicacao"],      
+            unidades=int(request.POST["unidades"])
+        )
+
+        if inserido:
+            return HttpResponseRedirect(
+                reverse(
+                    "SGCLA:detalhes",
+                    kwargs={
+                        "livro_id":livro.id,
+                        }
+                )
             )
+        
+        else:
+            return render(
+                    request,
+                    "SGCLAapp/detalhes.html",
+                    {
+                        "livro":livro,
+                        "mensagemDeErro":"Este livro já consta na base de dados"
+                    },
+                )
