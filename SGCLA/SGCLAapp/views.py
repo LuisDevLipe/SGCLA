@@ -4,7 +4,7 @@ from .models import Livro, LivrosAlugados
 from django.db.models import Q
 from django.urls import reverse
 from django.template import loader
-
+from django.core.exceptions import ValidationError
 
 # Create your views here.
 
@@ -49,9 +49,19 @@ def adicionarUmLivroRota(request):
     return  HttpResponse(template.render(contexto, request))
 
 def adicionarUmLivro(request):
-    if int(request.POST["unidades"]) <= 0:
-        raise ValueError("As unidades precisam ser um número válido maior que 0.")
+     
+    if request.POST["unidades"]:
+        entradasInvalidas = ["True", "None", "False"]
+
+        if request.POST["unidades"] in entradasInvalidas:
+            raise ValidationError("Seu filho da ****",500)
+        
+        elif int(request.POST["unidades"]) <= 0:
+            raise ValidationError("As unidades precisam ser um número válido maior que 0.", 500)
     
+        else:
+            pass
+        
     livro, inserido = Livro.objects.get_or_create(
         titulo=request.POST["titulo"],
         genero=request.POST["genero"],
